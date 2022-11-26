@@ -1,0 +1,203 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : v2006 OPENFOAM=2006
+Arch   : "LSB;label=32;scalar=64"
+Exec   : rhoSimpleFoam
+Date   : Nov 21 2022
+Time   : 23:37:24
+Host   : mateusz-VirtualBox
+PID    : 11309
+I/O    : uncollated
+Case   : /home/mateusz/Documents/GroundEffect
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create mesh for time = 0
+
+
+SIMPLE: no convergence criteria found. Calculations will run for 5000 steps.
+
+Reading thermophysical properties
+
+Selecting thermodynamics package 
+{
+    type            hePsiThermo;
+    mixture         pureMixture;
+    transport       sutherland;
+    thermo          hConst;
+    equationOfState perfectGas;
+    specie          specie;
+    energy          sensibleInternalEnergy;
+}
+
+Reading field U
+
+Reading/calculating face flux field phi
+
+Creating turbulence model
+
+Selecting turbulence model type RAS
+Selecting RAS turbulence model kOmega
+--> FOAM Warning : 
+    From Foam::omegaWallFunctionFvPatchScalarField::omegaWallFunctionFvPatchScalarField(const Foam::fvPatch&, const Foam::DimensionedField<double, Foam::volMesh>&, const Foam::dictionary&)
+    in file derivedFvPatchFields/wallFunctions/omegaWallFunctions/omegaWallFunction/omegaWallFunctionFvPatchScalarField.C at line 388
+    Reading "/home/mateusz/Documents/GroundEffect/0/omega.boundaryField.Airfoil" at line 41
+    Using deprecated 'blended' keyword
+    Please use either of the below for the same behaviour:
+    'blending  binomial2;' for 'blended  on;'
+    'blending  stepwise;'  for 'blended  off;'
+    OVERWRITING: 'blended' keyword -> 'blending' enum
+--> FOAM Warning : 
+    From Foam::omegaWallFunctionFvPatchScalarField::omegaWallFunctionFvPatchScalarField(const Foam::fvPatch&, const Foam::DimensionedField<double, Foam::volMesh>&, const Foam::dictionary&)
+    in file derivedFvPatchFields/wallFunctions/omegaWallFunctions/omegaWallFunction/omegaWallFunctionFvPatchScalarField.C at line 388
+    Reading "/home/mateusz/Documents/GroundEffect/0/omega.boundaryField.Ground" at line 47
+    Using deprecated 'blended' keyword
+    Please use either of the below for the same behaviour:
+    'blending  binomial2;' for 'blended  on;'
+    'blending  stepwise;'  for 'blended  off;'
+    OVERWRITING: 'blended' keyword -> 'blending' enum
+RAS
+{
+    RASModel        kOmega;
+    turbulence      on;
+    printCoeffs     on;
+    betaStar        0.09;
+    beta            0.072;
+    gamma           0.52;
+    alphaK          0.5;
+    alphaOmega      0.5;
+}
+
+No MRF models present
+
+No finite volume options present
+
+Starting time loop
+
+pressure pressure:
+    Operating mode: staticCoeff
+    Not including hydrostatic effects
+
+--> FOAM Warning : 
+    From Foam::labelHashSet Foam::polyBoundaryMesh::patchSet(const Foam::UList<Foam::wordRe>&, bool, bool) const
+    in file meshes/polyMesh/polyBoundaryMesh/polyBoundaryMesh.C at line 891
+    Cannot find any patch or group names matching Wing
+wallShearStress wallShearStress:
+    processing all wall patches
+
+fieldAverage fieldAverage1:
+    Restarting averaging for fields:
+        U: starting averaging at time 0
+        p: starting averaging at time 0
+        nut: starting averaging at time 0
+        T: starting averaging at time 0
+
+forceCoeffs forces:
+--> FOAM Warning : 
+    From Foam::labelHashSet Foam::polyBoundaryMesh::patchSet(const Foam::UList<Foam::wordRe>&, bool, bool) const
+    in file meshes/polyMesh/polyBoundaryMesh/polyBoundaryMesh.C at line 891
+    Cannot find any patch or group names matching Wing
+    p: p
+    U: U
+    rho: rhoInf
+    Freestream density (rhoInf) set to 1
+    Not including porosity effects
+
+Time = 1
+
+DILUPBiCGStab:  Solving for Ux, Initial residual = 0.99999988, Final residual = 0.000987482, No Iterations 1
+DILUPBiCGStab:  Solving for Uy, Initial residual = 1, Final residual = 0.0019014494, No Iterations 1
+DILUPBiCGStab:  Solving for e, Initial residual = 0.99998157, Final residual = 0.013921907, No Iterations 1
+GAMG:  Solving for p, Initial residual = 1, Final residual = 0.0099016172, No Iterations 325
+time step continuity errors : sum local = 1.6348638e-06, global = 1.5482255e-07, cumulative = 1.5482255e-07
+DILUPBiCGStab:  Solving for omega, Initial residual = 0.0027790625, Final residual = 0.00010905988, No Iterations 1
+DILUPBiCGStab:  Solving for k, Initial residual = 1, Final residual = 0.028259043, No Iterations 1
+ExecutionTime = 2.86 s  ClockTime = 3 s
+
+forceCoeffs forces execute:
+    Coefficients
+        Cd       : 0	(pressure: 0	viscous: 0)
+        Cs       : 0	(pressure: 0	viscous: 0)
+        Cl       : 0	(pressure: 0	viscous: 0)
+        CmRoll       : 0	(pressure: 0	viscous: 0)
+        CmPitch       : 0	(pressure: 0	viscous: 0)
+        CmYaw       : 0	(pressure: 0	viscous: 0)
+        Cd(f)    : 0
+        Cd(r)    : 0
+        Cs(f)    : 0
+        Cs(r)    : 0
+        Cl(f)    : 0
+        Cl(r)    : 0
+Time = 2
+
+DILUPBiCGStab:  Solving for Ux, Initial residual = 0.17885936, Final residual = 0.0016341681, No Iterations 1
+DILUPBiCGStab:  Solving for Uy, Initial residual = 0.14649814, Final residual = 0.0011608479, No Iterations 1
+DILUPBiCGStab:  Solving for e, Initial residual = 0.96339742, Final residual = 0.085547087, No Iterations 1
+GAMG:  Solving for p, Initial residual = 0.062867242, Final residual = 0.00061654872, No Iterations 140
+time step continuity errors : sum local = 2.5620944e-05, global = 3.9692268e-06, cumulative = 4.1240493e-06
+DILUPBiCGStab:  Solving for omega, Initial residual = 0.0049344784, Final residual = 4.0084482e-05, No Iterations 1
+DILUPBiCGStab:  Solving for k, Initial residual = 0.23257698, Final residual = 0.0042941505, No Iterations 1
+ExecutionTime = 3.94 s  ClockTime = 4 s
+
+forceCoeffs forces execute:
+    Coefficients
+        Cd       : 0	(pressure: 0	viscous: 0)
+        Cs       : 0	(pressure: 0	viscous: 0)
+        Cl       : 0	(pressure: 0	viscous: 0)
+        CmRoll       : 0	(pressure: 0	viscous: 0)
+        CmPitch       : 0	(pressure: 0	viscous: 0)
+        CmYaw       : 0	(pressure: 0	viscous: 0)
+        Cd(f)    : 0
+        Cd(r)    : 0
+        Cs(f)    : 0
+        Cs(r)    : 0
+        Cl(f)    : 0
+        Cl(r)    : 0
+Time = 3
+
+DILUPBiCGStab:  Solving for Ux, Initial residual = 0.027888537, Final residual = 0.00023327268, No Iterations 1
+DILUPBiCGStab:  Solving for Uy, Initial residual = 0.1168885, Final residual = 0.00099488901, No Iterations 1
+DILUPBiCGStab:  Solving for e, Initial residual = 0.13116516, Final residual = 0.0091506111, No Iterations 1
+GAMG:  Solving for p, Initial residual = 0.026085138, Final residual = 0.00026003881, No Iterations 102
+time step continuity errors : sum local = 1.7770063e-05, global = -1.8058188e-06, cumulative = 2.3182305e-06
+DILUPBiCGStab:  Solving for omega, Initial residual = 0.00063794654, Final residual = 2.7012762e-05, No Iterations 1
+DILUPBiCGStab:  Solving for k, Initial residual = 0.066431692, Final residual = 0.00074682984, No Iterations 1
+ExecutionTime = 4.86 s  ClockTime = 5 s
+
+forceCoeffs forces execute:
+    Coefficients
+        Cd       : 0	(pressure: 0	viscous: 0)
+        Cs       : 0	(pressure: 0	viscous: 0)
+        Cl       : 0	(pressure: 0	viscous: 0)
+        CmRoll       : 0	(pressure: 0	viscous: 0)
+        CmPitch       : 0	(pressure: 0	viscous: 0)
+        CmYaw       : 0	(pressure: 0	viscous: 0)
+        Cd(f)    : 0
+        Cd(r)    : 0
+        Cs(f)    : 0
+        Cs(r)    : 0
+        Cl(f)    : 0
+        Cl(r)    : 0
+Time = 4
+
+DILUPBiCGStab:  Solving for Ux, Initial residual = 0.026748399, Final residual = 0.00026909262, No Iterations 1
+DILUPBiCGStab:  Solving for Uy, Initial residual = 0.088878842, Final residual = 0.00067686749, No Iterations 1
+DILUPBiCGStab:  Solving for e, Initial residual = 0.10180437, Final residual = 0.0056437291, No Iterations 1
+#0  Foam::error::printStack(Foam::Ostream&) at ??:?
+#1  Foam::sigFpe::sigHandler(int) at ??:?
+#2  ? in /lib/x86_64-linux-gnu/libpthread.so.0
+#3  Foam::hePsiThermo<Foam::psiThermo, Foam::pureMixture<Foam::sutherlandTransport<Foam::species::thermo<Foam::hConstThermo<Foam::perfectGas<Foam::specie> >, Foam::sensibleInternalEnergy> > > >::calculate(Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh> const&, Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>&, Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>&, Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>&, Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>&, Foam::GeometricField<double, Foam::fvPatchField, Foam::volMesh>&, bool) at ??:?
+#4  Foam::hePsiThermo<Foam::psiThermo, Foam::pureMixture<Foam::sutherlandTransport<Foam::species::thermo<Foam::hConstThermo<Foam::perfectGas<Foam::specie> >, Foam::sensibleInternalEnergy> > > >::correct() at ??:?
+#5  ? in ~/OpenFOAM/OpenFOAM-v2006/platforms/linux64GccDPInt32Opt/bin/rhoSimpleFoam
+#6  __libc_start_main in /lib/x86_64-linux-gnu/libc.so.6
+#7  ? in ~/OpenFOAM/OpenFOAM-v2006/platforms/linux64GccDPInt32Opt/bin/rhoSimpleFoam
