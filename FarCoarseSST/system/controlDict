@@ -1,0 +1,174 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     rhoSimpleFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         5000;
+
+deltaT          1;
+
+writeControl adjustableRunTime;
+
+writeInterval   500;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  8;
+
+timeFormat      general;
+
+timePrecision   8;
+
+runTimeModifiable yes;
+
+adjustTimeStep  yes;
+
+maxCo           0.8;
+
+functions
+{
+		pressure
+    {
+        type            pressure;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+        result          Cp;
+        mode            staticCoeff;
+        rho             rhoInf;
+        rhoInf          1;
+        U               UInf;
+        UInf            (0.10341307460858129 0 0);
+        pInf            1.;
+    }
+    
+    wallShearStress
+    {
+        type            wallShearStress;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+        patches         (Wing);
+        format          gnuplot;
+    }
+
+    yPlus
+    {
+        type            yPlus;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+        patches         (Wing);
+        format          gnuplot;
+    }
+
+    cellCentres
+    {
+        type            writeCellCentres;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+    }
+
+    fieldAverage1
+    {
+        type            fieldAverage;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+        timeStart       100;
+        fields
+        (
+            U
+            {
+                mean        on;
+                prime2Mean  off;
+                base        time;
+            }
+
+            p
+            {
+                mean        on;
+                prime2Mean  off;
+                base        time;
+            }
+            nut
+            {
+                mean        on;
+                prime2Mean  off;
+                base        time;
+            }
+            T 
+            {
+                mean        on;
+                prime2Mean  off;
+                base        time;
+            }
+
+        );
+    }
+
+    forces
+    {
+
+    residuals
+    {
+        type            solverInfo;
+        libs            (utilityFunctionObjects);
+        fields          (U p);
+    }
+        type            forceCoeffs;
+        libs            (forces);
+//        outputControl       timeStep;
+        outputInterval      5;
+
+        patches
+        (
+           Wing
+        );
+        p               p;
+        U               U;
+        rho             rhoInf;
+        rhoInf      1;
+
+        CofR        (0 0 0);
+        liftDir     (0 1 0);
+        dragDir     (1 0 0);
+        pitchAxis   (0 0 1);
+        magUInf     0.10341307460858129;
+        lRef        1.;
+        Aref        1.;
+    }
+    sample
+    {
+        type            sets;
+        libs            (sampling);
+        writeControl    writeTime;
+        interpolationScheme cellPoint;
+        setFormat raw;
+    sets
+       (
+
+);
+fields          ( p pMean);
+}
+
+}
+// ************************************************************************* //
